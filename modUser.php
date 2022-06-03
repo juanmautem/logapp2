@@ -42,12 +42,18 @@
 if(isset($_GET['typeOp'])){
   $con = connect();
   $id = $_GET['userID'];
-    print_r($_GET);
     switch($_GET['typeOp']){
         
         case 1:
           $resultado = mysqli_query( $con, " CALL proActivate($id);" ) or die ( "Algo ha ido mal en la consulta a la base de datos");
-          break;
+          if($resultado) {
+            echo json_encode(true);
+            break; 
+          }
+          else{
+            echo json_encode(false);
+            break;
+          }
         default:
           break;
      }

@@ -41,7 +41,7 @@
 
 </style>
 <body>
-	<section id="Login" >
+	<section id="menu">
 		<div id="banner" name = "banner">
 			<ul class="nav justify-content-center">
 			    <li class="nav-item">
@@ -55,6 +55,10 @@
 			    </li>
 			  </ul>
 		</div>
+	</section>
+	<hr><br>
+	<section id="Login" class="container">
+		
 		<div id="cuerpo" name = "cuerpo"  class="container-fluid">
 			<div class="input-group mb-3">
 	      <div class="input-group-prepend">
@@ -176,7 +180,7 @@
                 if(row.bActivo == 0)
                     cad += "<button value='"+row.UserID +"' class='btn btn-danger btn-sm ' onclick = 'change(this.value);' > <i class='fas fa-thumbs-down'></i></button>";
             cad += "</td>";
-            cad += "<td> Botones</td>";
+            cad += "<td> </td>";
             cad+= "</tr>"
         }
         usersList.innerHTML = cad;
@@ -189,7 +193,13 @@
 		$.ajax({
             method: "GET",
             url: "modUser.php",
-            data: usrData
+            data: usrData,
+            success: function(data){
+            	data = $.trim(data);
+            	if(data == 'true')
+            		location.reload();
+
+            }
         });
 	}
 
@@ -205,7 +215,31 @@
         $.ajax({
             method: "GET",
             url: "modLogin.php",
-            data: usrData
+            data: usrData,
+            success: function(data){
+            	data = $.trim(data);
+            	switch(data){
+            		case '1':
+            			alert("BIENVENIDO SUPERADMIN");
+            			window.location.href = "./superAdmin.php?access=true";
+            			break;
+            		case '2':
+            			alert("BIENVENIDO ADMIN");
+            			window.location.href = "./admin.php";
+            			break;
+        			case '3':
+	        			alert("BIENVENIDO EMPLEADO");
+            			window.location.href = "./empleados.php";
+	        			break;
+        			case '4':
+	        			alert("BIENVENIDO CLIENTE");
+            			window.location.href = "./clientes.php";
+	        			break;
+        			default:
+	        			alert("USUARIO NO ENCONTRADO");
+	        			break;
+            	}
+            }
         });
 	}
 </script>

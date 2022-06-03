@@ -2,7 +2,6 @@
   include 'connection.php';
 
   $con = connect();
-  echo "HOLA DESDE LOGIN <br>";
   if(isset($_GET['typeOp'])){
     switch($_GET['typeOp']){
       case 1:
@@ -14,25 +13,27 @@
           $id = $res['PersonID']; 
           $resultado2 = mysqli_query( $con, "SELECT * FROM vwusersdata WHERE nIdPersona = $id" ) or die ( "Algo ha ido mal en la consulta a la base de datos");
            $data = mysqli_fetch_array($resultado2);
-           if($data[8] == 'Super Administrador'){
-              $_SESSION['userID'] = $data['nIdPersona'];
+           $_SESSION['userID'] = $data['nIdPersona'];
               $_SESSION['nombre'] = $data['txtNombre'];
               $_SESSION['apellidos'] = $data['txtApellidos'];
               $_SESSION['NickName'] = $data['txtNombreCorto'];
               $_SESSION['RFC'] = $data['txtRFC'];
               $_SESSION['Tipo'] = $data['txtTipo'];
-              print_r($_SESSION);
-              echo "BIENVENIDO SUPER ADMIN!!";
+              
+           if($data[8] == 'Super Administrador'){
+              
+              echo json_encode(1);
            }
            if($data[8] == 'Administrador'){
-              echo "BIENVENIDO ADMIN!!";
+              echo json_encode(2);
+            
            }
            if($data[8] == 'Empleado'){
-              echo "BIENVENIDO EMPLEADO!!";
+              echo json_encode(3);
+
            }
            if($data[8] == 'Clientes'){
-              echo "BIENVENIDO CLIENTE!!";
-           }
+             echo json_encode(4);           }
           
         }
         else
@@ -41,6 +42,6 @@
         break;
         
     }
-
+    
 
   }
