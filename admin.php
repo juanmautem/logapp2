@@ -6,6 +6,6 @@
 	<title>VISTA ADMIN</title>
 </head>
 <body>
-
+	<?php print_r($_SESSION); ?>
 </body>
 </html>
