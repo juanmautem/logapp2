@@ -6,6 +6,7 @@
 	<title>Vista Clientes</title>
 </head>
 <body>
+	<?php print_r($_SESSION); ?>
 
 </body>
 </html>

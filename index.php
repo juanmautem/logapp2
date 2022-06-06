@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <?php
+session_destroy();
 	include 'connection.php';
 	
 ?>
