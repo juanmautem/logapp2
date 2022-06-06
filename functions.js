@@ -40,8 +40,7 @@ function allTypes(types){
             success: function(data){
             	data = $.trim(data);
             	if(data == 'true')
-            		location.reload();
-
+                    window.location.href = "./index.php";
             }
         });
 	}
