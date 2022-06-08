@@ -39,7 +39,8 @@ function allTypes(types){
             data: usrData,
             success: function(data){
             	data = $.trim(data);
-            	if(data == 'true')
+            	if(data)
+                    confirm("Usuario Actualizado Correctamente");
                     window.location.href = "./index.php";
             }
         });

@@ -1,8 +1,8 @@
 <?php 
-	include 'connection.php';
+  include 'connection.php';
 
 /* MODIFICAR E INSERTAR USUARIOS */
-	if(isset($_POST['typeOp'])){
+  if(isset($_POST['typeOp'])){
     print_r($_POST);
     switch($_POST['typeOp']){
         case 1:
@@ -15,10 +15,10 @@
           deleteUser($_POST);
           break;
      }
-	}
-	//$data = $_POST
+  }
+  //$data = $_POST
 
-	function insertUser($data){
+  function insertUser($data){
     $con = connect();
     $nombre = $data['fName'];
     $apellidos = $data['lName'];
@@ -27,7 +27,7 @@
     $NickName = $data['nName'];
     $Psw = $data['nPsw'];
     $resultado = mysqli_query( $con, "CALL proAddNwUser('$nombre','$apellidos','$rfc',$idT,'$NickName','$Psw');" ) or die ( "Algo ha ido mal en la consulta a la base de datos");
-		if($resultado){
+    if($resultado){
       mysqli_close($con);
       echo "Usuario Creado con Éxito";
     }else{
@@ -35,19 +35,25 @@
     }
 
 
-	}
+  }
 /*************************************************************************/
 /*CONSULTAS A VISTAS Y CAMBIO DE ESTADOS*/
 
 if(isset($_GET['typeOp'])){
   $con = connect();
   $id = $_GET['userID'];
-    print_r($_GET);
     switch($_GET['typeOp']){
         
         case 1:
           $resultado = mysqli_query( $con, " CALL proActivate($id);" ) or die ( "Algo ha ido mal en la consulta a la base de datos");
-          break;
+          if($resultado) {
+            echo true;
+            break; 
+          }
+          else{
+            echo false;
+            break;
+          }
         default:
           break;
      }

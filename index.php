@@ -48,20 +48,20 @@ session_destroy();
 		<div id="banner" name = "banner">
 			<ul class="nav justify-content-center">
 			    <li class="nav-item">
-			      <a class="nav-link" href="#">Home</a>
+			      <a class="nav-link" href="#" onclick="activateN();">Home</a>
 			    </li>
 			    <li class="nav-item">
-			      <a class="nav-link" href="#">LogIn</a>
+			      <a class="nav-link" href="#" onclick="activateL();">LogIn</a>
 			    </li>
 			    <li class="nav-item">
-			      <a class="nav-link" href="#">Register</a>
+			      <a class="nav-link" href="#" onclick="activateU();">Register</a>
 			    </li>
 			  </ul>
 		</div>
 	</section>
-	<hr><br>
+	
 	<section id="Login" class="container">
-		
+		<hr><br>
 		<div id="cuerpo" name = "cuerpo"  class="container-fluid">
 			<div class="input-group mb-3">
 	      <div class="input-group-prepend">
@@ -81,7 +81,7 @@ session_destroy();
 		</section>
 
 		<br><hr>
-		<section class="container" >
+		<section class="container" id="newUser">
 			<h1>AGREGAR UN NUEVO USUARIO <hr>	</h1>
 			<form action="modUser.php" method="POST" accept-charset="utf-8">
 				<div class="input-group mb-3">
@@ -127,9 +127,9 @@ session_destroy();
 				<input type="hidden" name="typeOp" value="1">
 				<button type="submit" class="btn btn-success btn-md"> Enviar </button>
 			</form>
-
+<hr>
 		</section>
-    <hr>
+    
         <section id="allUsers" class="container">
             <table class="table table-dark table-hover">
                 <thead>
@@ -151,11 +151,38 @@ session_destroy();
 </body>
 <script type="text/javascript">
 window.onload = function() {
-    
+    let login = document.getElementById("Login").style.display;
+    let usrs = document.getElementById("allUsers").style.display;
+    let newUser = document.getElementById("newUser").style.display;
+    login = 'block';
+    usrs = 'none';
+    newUser = 'none';
     var types = <?php print_r(types());?>;
     var users = <?php print_r(allUsers());?>;
     allTypes(types);
     allUsers(users);
+
+    function activateL(){
+    	if(login == 'none'){
+    		usrs = 'none';
+    		newUser = 'none';
+    		login = 'block';
+    	}
+    }
+    function activateU(){
+    	if(usrs == 'none'){
+    		login = 'none';
+    		newUser = 'none';
+    		usrs = 'block';
+    	}
+    }
+    function activateN(){
+    	if(newUser == 'none'){
+    		usrs = 'none';
+    		newUser = 'block';
+    		login = 'none';
+    	}
+    }
 
 }
 </script>
