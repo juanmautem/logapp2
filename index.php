@@ -204,7 +204,7 @@
 	}
 
 	function login(){
-        var usr = document.getElementById("usr");
+        let usr = document.getElementById("usr");
         let psw = document.getElementById("psw");
         var usrData = {
             "user" : usr.value,
