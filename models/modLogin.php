@@ -20,19 +20,19 @@
               $_SESSION['RFC'] = $data['txtRFC'];
               $_SESSION['Tipo'] = $data['txtTipo'];
               $_SESSION['ID'] = session_id();
-           if($data[8] == 'Super Administrador'){
+           if($data['txtTipo'] == 'Super Administrador'){
               
               echo json_encode(1);
            }
-           if($data[8] == 'Administrador'){
+           if($data['txtTipo'] == 'Administrador'){
               echo json_encode(2);
             
            }
-           if($data[8] == 'Empleado'){
+           if($data['txtTipo'] == 'Empleado'){
               echo json_encode(3);
 
            }
-           if($data[8] == 'Clientes'){
+           if($data['txtTipo'] == 'Clientes'){
              echo json_encode(4);           }
           
         }

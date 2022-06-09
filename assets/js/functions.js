@@ -35,7 +35,7 @@ function allTypes(types){
         };
 		$.ajax({
             method: "GET",
-            url: "modUser.php",
+            url: "./models/modUser.php",
             data: usrData,
             success: function(data){
             	data = $.trim(data);
@@ -57,26 +57,26 @@ function allTypes(types){
 		
         $.ajax({
             method: "GET",
-            url: "modLogin.php",
+            url: "./models/modLogin.php",
             data: usrData,
             success: function(data){
             	data = $.trim(data);
             	switch(data){
             		case '1':
             			alert("BIENVENIDO SUPERADMIN");
-            			window.location.href = "./superAdmin.php?access=true";
+            			window.location.href = "./views/superAdmin.php?access=true";
             			break;
             		case '2':
             			alert("BIENVENIDO ADMIN");
-            			window.location.href = "./admin.php";
+            			window.location.href = "./views/admin.php";
             			break;
         			case '3':
 	        			alert("BIENVENIDO EMPLEADO");
-            			window.location.href = "./empleados.php";
+            			window.location.href = "./views/empleados.php";
 	        			break;
         			case '4':
 	        			alert("BIENVENIDO CLIENTE");
-            			window.location.href = "./clientes.php";
+            			window.location.href = "./views/clientes.php";
 	        			break;
         			default:
 	        			alert("USUARIO NO ENCONTRADO");

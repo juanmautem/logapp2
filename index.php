@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
 session_destroy();
-	include 'connection.php';
+	include './models/connection.php';
 	
 ?>
 
@@ -34,7 +34,7 @@ session_destroy();
     <!-- Librería AJAX -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-    <script src="functions.js" language="Javascript"></script> 
+    <script src="./assets/js/functions.js" language="Javascript"></script> 
 
 </head>
 <style type="text/css">
@@ -83,7 +83,7 @@ session_destroy();
 		<br><hr>
 		<section class="container" id="newUser">
 			<h1>AGREGAR UN NUEVO USUARIO <hr>	</h1>
-			<form action="modUser.php" method="POST" accept-charset="utf-8">
+			<form action="./models/modUser.php" method="POST" accept-charset="utf-8">
 				<div class="input-group mb-3">
 			    <div class="input-group-prepend">
 			      <span class="input-group-text">Nombre(s)</span>
@@ -151,38 +151,13 @@ session_destroy();
 </body>
 <script type="text/javascript">
 window.onload = function() {
-    let login = document.getElementById("Login").style.display;
-    let usrs = document.getElementById("allUsers").style.display;
-    let newUser = document.getElementById("newUser").style.display;
-    login = 'block';
-    usrs = 'none';
-    newUser = 'none';
+    
     var types = <?php print_r(types());?>;
     var users = <?php print_r(allUsers());?>;
     allTypes(types);
     allUsers(users);
 
-    function activateL(){
-    	if(login == 'none'){
-    		usrs = 'none';
-    		newUser = 'none';
-    		login = 'block';
-    	}
-    }
-    function activateU(){
-    	if(usrs == 'none'){
-    		login = 'none';
-    		newUser = 'none';
-    		usrs = 'block';
-    	}
-    }
-    function activateN(){
-    	if(newUser == 'none'){
-    		usrs = 'none';
-    		newUser = 'block';
-    		login = 'none';
-    	}
-    }
+    
 
 }
 </script>
