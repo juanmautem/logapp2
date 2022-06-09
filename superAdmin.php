@@ -22,7 +22,10 @@ else{
 	<title>ERROR</title>
 </head>
 <body>
-	<h1>ERROR 404. NO TIENES ACCESO A ESTE SITIO</h1>
+	<script>alert("ERROR 404. NO TIENES ACCESO A ESTE SITIO");
+	window.location.href = "./index.php";
+	<?php session_destroy(); ?>
+</script>
 </body>
 </html>
 <?php
