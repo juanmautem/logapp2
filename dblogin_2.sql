@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-06-2022 a las 18:51:12
+-- Tiempo de generación: 09-06-2022 a las 14:42:41
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 7.4.28
 
@@ -70,7 +70,7 @@ DELIMITER ;
 -- (Véase abajo para la vista actual)
 --
 DROP VIEW IF EXISTS `alltypes`;
-CREATE TABLE IF NOT EXISTS `alltypes` (
+CREATE TABLE `alltypes` (
 `ID` int(11)
 ,`Type` varchar(30)
 ,`Description` varchar(150)
@@ -83,17 +83,21 @@ CREATE TABLE IF NOT EXISTS `alltypes` (
 --
 
 DROP TABLE IF EXISTS `catpersonas`;
-CREATE TABLE IF NOT EXISTS `catpersonas` (
-  `nIdPersona` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `catpersonas` (
+  `nIdPersona` int(11) NOT NULL,
   `txtNombre` varchar(30) NOT NULL,
   `txtApellidos` varchar(70) DEFAULT NULL,
   `txtRFC` varchar(15) DEFAULT NULL,
   `bActivo` bit(1) DEFAULT b'0',
   `fhCreacion` datetime DEFAULT current_timestamp(),
-  `fhActualizacion` datetime DEFAULT current_timestamp(),
-  PRIMARY KEY (`nIdPersona`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
+  `fhActualizacion` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Truncar tablas antes de insertar `catpersonas`
+--
+
+TRUNCATE TABLE `catpersonas`;
 --
 -- Volcado de datos para la tabla `catpersonas`
 --
@@ -112,7 +116,7 @@ INSERT INTO `catpersonas` (`nIdPersona`, `txtNombre`, `txtApellidos`, `txtRFC`, 
 --
 DROP TRIGGER IF EXISTS `dsDelPersonas`;
 DELIMITER $$
-CREATE TRIGGER `dsDelPersonas` AFTER INSERT ON `catpersonas` FOR EACH ROW BEGIN
+CREATE TRIGGER `dsDelPersonas` AFTER DELETE ON `catpersonas` FOR EACH ROW BEGIN
          
         INSERT INTO `repcambios`(`user`, `txtAccion`, `txtCampo`,
                                     `txtAnterior`, `txtNuevo`, `txtTabla`) 
@@ -176,16 +180,20 @@ DELIMITER ;
 --
 
 DROP TABLE IF EXISTS `cattipopersona`;
-CREATE TABLE IF NOT EXISTS `cattipopersona` (
-  `nIdTipoP` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `cattipopersona` (
+  `nIdTipoP` int(11) NOT NULL,
   `txtTipo` varchar(30) NOT NULL,
   `txtDescripcion` varchar(150) DEFAULT NULL,
   `bActivo` bit(1) DEFAULT b'0',
   `fhCreacion` datetime DEFAULT current_timestamp(),
-  `fhActualizacion` datetime DEFAULT current_timestamp(),
-  PRIMARY KEY (`nIdTipoP`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+  `fhActualizacion` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Truncar tablas antes de insertar `cattipopersona`
+--
+
+TRUNCATE TABLE `cattipopersona`;
 --
 -- Volcado de datos para la tabla `cattipopersona`
 --
@@ -203,20 +211,22 @@ INSERT INTO `cattipopersona` (`nIdTipoP`, `txtTipo`, `txtDescripcion`, `bActivo`
 --
 
 DROP TABLE IF EXISTS `relusuario`;
-CREATE TABLE IF NOT EXISTS `relusuario` (
-  `nIdRPT` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `relusuario` (
+  `nIdRPT` int(11) NOT NULL,
   `fk_eIdPersona` int(11) NOT NULL,
   `fk_eIdTipoP` int(11) NOT NULL,
   `txtNombreCorto` varchar(20) NOT NULL,
   `txtPassword` varchar(50) NOT NULL,
   `bActivo` bit(1) DEFAULT b'0',
   `fhCreacion` datetime DEFAULT current_timestamp(),
-  `fhActualizacion` datetime DEFAULT current_timestamp(),
-  PRIMARY KEY (`nIdRPT`),
-  KEY `fk_eIdPersona` (`fk_eIdPersona`),
-  KEY `fk_eIdTipoP` (`fk_eIdTipoP`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+  `fhActualizacion` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Truncar tablas antes de insertar `relusuario`
+--
+
+TRUNCATE TABLE `relusuario`;
 --
 -- Volcado de datos para la tabla `relusuario`
 --
@@ -235,19 +245,22 @@ INSERT INTO `relusuario` (`nIdRPT`, `fk_eIdPersona`, `fk_eIdTipoP`, `txtNombreCo
 --
 
 DROP TABLE IF EXISTS `repcambios`;
-CREATE TABLE IF NOT EXISTS `repcambios` (
-  `idMod` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `repcambios` (
+  `idMod` int(11) NOT NULL,
   `user` varchar(30) NOT NULL,
   `txtAccion` varchar(15) NOT NULL,
   `txtCampo` varchar(30) DEFAULT 'ALL',
   `txtAnterior` varchar(255) DEFAULT NULL,
   `txtNuevo` varchar(255) DEFAULT NULL,
   `txtTabla` varchar(50) NOT NULL,
-  `fhUpdate` datetime NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`idMod`),
-  KEY `fk_iduser` (`user`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4;
+  `fhUpdate` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Truncar tablas antes de insertar `repcambios`
+--
+
+TRUNCATE TABLE `repcambios`;
 --
 -- Volcado de datos para la tabla `repcambios`
 --
@@ -284,15 +297,19 @@ INSERT INTO `repcambios` (`idMod`, `user`, `txtAccion`, `txtCampo`, `txtAnterior
 --
 
 DROP TABLE IF EXISTS `sesiones`;
-CREATE TABLE IF NOT EXISTS `sesiones` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `sesiones` (
+  `id` int(11) NOT NULL,
   `idUsuario` int(11) NOT NULL,
   `idSesion` varchar(20) DEFAULT NULL,
   `fhInicio` datetime DEFAULT current_timestamp(),
-  `fhFin` datetime DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`)
+  `fhFin` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Truncar tablas antes de insertar `sesiones`
+--
+
+TRUNCATE TABLE `sesiones`;
 -- --------------------------------------------------------
 
 --
@@ -300,7 +317,7 @@ CREATE TABLE IF NOT EXISTS `sesiones` (
 -- (Véase abajo para la vista actual)
 --
 DROP VIEW IF EXISTS `vwlogin`;
-CREATE TABLE IF NOT EXISTS `vwlogin` (
+CREATE TABLE `vwlogin` (
 `UserID` int(11)
 ,`PersonID` int(11)
 ,`NickName` varchar(20)
@@ -315,7 +332,7 @@ CREATE TABLE IF NOT EXISTS `vwlogin` (
 -- (Véase abajo para la vista actual)
 --
 DROP VIEW IF EXISTS `vwusersdata`;
-CREATE TABLE IF NOT EXISTS `vwusersdata` (
+CREATE TABLE `vwusersdata` (
 `UserID` int(11)
 ,`nIdPersona` int(11)
 ,`txtNombre` varchar(30)
@@ -356,6 +373,77 @@ DROP TABLE IF EXISTS `vwusersdata`;
 
 DROP VIEW IF EXISTS `vwusersdata`;
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vwusersdata`  AS SELECT `b`.`nIdRPT` AS `UserID`, `a`.`nIdPersona` AS `nIdPersona`, `a`.`txtNombre` AS `txtNombre`, `a`.`txtApellidos` AS `txtApellidos`, `a`.`txtRFC` AS `txtRFC`, `b`.`txtNombreCorto` AS `txtNombreCorto`, `b`.`txtPassword` AS `txtPassword`, `b`.`bActivo` AS `bActivo`, `c`.`txtTipo` AS `txtTipo` FROM ((`catpersonas` `a` join `relusuario` `b` on(`a`.`nIdPersona` = `b`.`fk_eIdPersona`)) left join `cattipopersona` `c` on(`b`.`fk_eIdTipoP` = `c`.`nIdTipoP`))  ;
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `catpersonas`
+--
+ALTER TABLE `catpersonas`
+  ADD PRIMARY KEY (`nIdPersona`);
+
+--
+-- Indices de la tabla `cattipopersona`
+--
+ALTER TABLE `cattipopersona`
+  ADD PRIMARY KEY (`nIdTipoP`);
+
+--
+-- Indices de la tabla `relusuario`
+--
+ALTER TABLE `relusuario`
+  ADD PRIMARY KEY (`nIdRPT`),
+  ADD KEY `fk_eIdPersona` (`fk_eIdPersona`),
+  ADD KEY `fk_eIdTipoP` (`fk_eIdTipoP`);
+
+--
+-- Indices de la tabla `repcambios`
+--
+ALTER TABLE `repcambios`
+  ADD PRIMARY KEY (`idMod`),
+  ADD KEY `fk_iduser` (`user`);
+
+--
+-- Indices de la tabla `sesiones`
+--
+ALTER TABLE `sesiones`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `catpersonas`
+--
+ALTER TABLE `catpersonas`
+  MODIFY `nIdPersona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT de la tabla `cattipopersona`
+--
+ALTER TABLE `cattipopersona`
+  MODIFY `nIdTipoP` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de la tabla `relusuario`
+--
+ALTER TABLE `relusuario`
+  MODIFY `nIdRPT` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT de la tabla `repcambios`
+--
+ALTER TABLE `repcambios`
+  MODIFY `idMod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+
+--
+-- AUTO_INCREMENT de la tabla `sesiones`
+--
+ALTER TABLE `sesiones`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Restricciones para tablas volcadas
